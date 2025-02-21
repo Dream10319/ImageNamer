@@ -216,6 +216,7 @@ namespace ImageNamer
             MaximizeBox = false;
             Name = "Form1";
             Text = "Image Namer";
+            Load += Form1_Load;
             groupBox1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
