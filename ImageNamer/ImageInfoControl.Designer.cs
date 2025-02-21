@@ -79,9 +79,8 @@
             lblConvertedFileName.AutoSize = true;
             lblConvertedFileName.Location = new Point(502, 44);
             lblConvertedFileName.Name = "lblConvertedFileName";
-            lblConvertedFileName.Size = new Size(116, 15);
+            lblConvertedFileName.Size = new Size(0, 15);
             lblConvertedFileName.TabIndex = 4;
-            lblConvertedFileName.Text = "converted_file_name";
             lblConvertedFileName.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // ImageInfoControl

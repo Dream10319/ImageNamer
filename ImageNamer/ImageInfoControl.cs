@@ -5,26 +5,29 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace ImageNamer
 {
     public partial class ImageInfoControl : UserControl
     {
         public string FilePath { get; }
-
-        public ImageInfoControl(string filePath)
+        public AttributeManager attManager;
+        public ImageInfoControl(string filePath, AttributeManager attributeManager)
         {
             this.FilePath = filePath;
             InitializeComponent();
+            attManager = attributeManager;
         }
 
         public bool AreAttributesSet() => cbAttribute1.SelectedItem != null && cbAttribute2.SelectedItem != null;
 
         public string GetNewFileName()
         {
-            string originalName = Path.GetFileNameWithoutExtension(FilePath);
+            string originalName = Regex.Replace(Path.GetFileNameWithoutExtension(FilePath), @"_\d+$", "");
             lblConvertedFileName.Text = $"{originalName}_{cbAttribute1.SelectedItem}_{cbAttribute2.SelectedItem}.jpg";
             return lblConvertedFileName.Text;
         }
@@ -33,8 +36,8 @@ namespace ImageNamer
         {
             lblFileName.Text = Path.GetFileName(FilePath);
 
-            cbAttribute1.Items.AddRange(new string[] { "FrontBody", "SideBody", "Rear", "Front", "Side", "Back", "Detail1", "Detail2", "Detail3" });
-            cbAttribute2.Items.AddRange(new string[] { "Zoom", "Full", "NA" });
+            cbAttribute1.Items.AddRange(attManager.attribute1Options.ToArray());
+            cbAttribute2.Items.AddRange(attManager.attribute2Options.ToArray());
 
             pictureBox.Image = LoadImageWithoutLocking(FilePath);
         }

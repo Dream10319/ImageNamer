@@ -40,6 +40,11 @@ namespace ImageNamer
             button4 = new Button();
             groupBox1 = new GroupBox();
             flowPanel = new FlowLayoutPanel();
+            txtNewAttribute1 = new TextBox();
+            btnAddAttribute1 = new Button();
+            btnAddAttribute2 = new Button();
+            txtNewAttribute2 = new TextBox();
+            btnReload = new Button();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
@@ -97,14 +102,14 @@ namespace ImageNamer
             // 
             // progressBar
             // 
-            progressBar.Location = new Point(12, 541);
+            progressBar.Location = new Point(12, 601);
             progressBar.Name = "progressBar";
             progressBar.Size = new Size(765, 23);
             progressBar.TabIndex = 7;
             // 
             // btnProcess
             // 
-            btnProcess.Location = new Point(294, 579);
+            btnProcess.Location = new Point(294, 642);
             btnProcess.Name = "btnProcess";
             btnProcess.Size = new Size(74, 26);
             btnProcess.TabIndex = 8;
@@ -113,7 +118,7 @@ namespace ImageNamer
             // 
             // button4
             // 
-            button4.Location = new Point(406, 579);
+            button4.Location = new Point(406, 642);
             button4.Name = "button4";
             button4.Size = new Size(74, 26);
             button4.TabIndex = 9;
@@ -124,7 +129,7 @@ namespace ImageNamer
             // groupBox1
             // 
             groupBox1.Controls.Add(flowPanel);
-            groupBox1.Location = new Point(13, 76);
+            groupBox1.Location = new Point(12, 132);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(765, 448);
             groupBox1.TabIndex = 10;
@@ -143,11 +148,60 @@ namespace ImageNamer
             flowPanel.TabIndex = 0;
             flowPanel.WrapContents = false;
             // 
+            // txtNewAttribute1
+            // 
+            txtNewAttribute1.Location = new Point(16, 92);
+            txtNewAttribute1.Name = "txtNewAttribute1";
+            txtNewAttribute1.Size = new Size(186, 23);
+            txtNewAttribute1.TabIndex = 11;
+            // 
+            // btnAddAttribute1
+            // 
+            btnAddAttribute1.Location = new Point(208, 92);
+            btnAddAttribute1.Name = "btnAddAttribute1";
+            btnAddAttribute1.Size = new Size(97, 23);
+            btnAddAttribute1.TabIndex = 12;
+            btnAddAttribute1.Text = "Add Attribute1";
+            btnAddAttribute1.UseVisualStyleBackColor = true;
+            btnAddAttribute1.Click += button1_Click;
+            // 
+            // btnAddAttribute2
+            // 
+            btnAddAttribute2.Location = new Point(538, 92);
+            btnAddAttribute2.Name = "btnAddAttribute2";
+            btnAddAttribute2.Size = new Size(97, 23);
+            btnAddAttribute2.TabIndex = 14;
+            btnAddAttribute2.Text = "Add Attribute2";
+            btnAddAttribute2.UseVisualStyleBackColor = true;
+            btnAddAttribute2.Click += btnAddAttribute2_Click;
+            // 
+            // txtNewAttribute2
+            // 
+            txtNewAttribute2.Location = new Point(346, 92);
+            txtNewAttribute2.Name = "txtNewAttribute2";
+            txtNewAttribute2.Size = new Size(186, 23);
+            txtNewAttribute2.TabIndex = 13;
+            // 
+            // btnReload
+            // 
+            btnReload.Location = new Point(699, 91);
+            btnReload.Name = "btnReload";
+            btnReload.Size = new Size(75, 23);
+            btnReload.TabIndex = 15;
+            btnReload.Text = "Reload";
+            btnReload.UseVisualStyleBackColor = true;
+            btnReload.Click += btnReload_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(790, 617);
+            ClientSize = new Size(790, 680);
+            Controls.Add(btnReload);
+            Controls.Add(btnAddAttribute2);
+            Controls.Add(txtNewAttribute2);
+            Controls.Add(btnAddAttribute1);
+            Controls.Add(txtNewAttribute1);
             Controls.Add(groupBox1);
             Controls.Add(button4);
             Controls.Add(btnProcess);
@@ -180,5 +234,10 @@ namespace ImageNamer
         private GroupBox groupBox1;
         private FlowLayoutPanel flowPanel;
         private TextBox txtSource;
+        private TextBox txtNewAttribute1;
+        private Button btnAddAttribute1;
+        private Button btnAddAttribute2;
+        private TextBox txtNewAttribute2;
+        private Button btnReload;
     }
 }

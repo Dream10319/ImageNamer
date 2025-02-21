@@ -1,13 +1,17 @@
+using System.Xml.Linq;
+
 namespace ImageNamer
 {
     public partial class Form1 : Form
     {
+        public AttributeManager attributeManager = new AttributeManager();
         public Form1()
         {
             InitializeComponent();
             btnSource.Click += (s, e) => SelectDirectory(txtSource);
             btnDest.Click += (s, e) => SelectDirectory(txtDestination);
             btnProcess.Click += (s, e) => ProcessImages(s, e);
+            attributeManager.LoadAttributeSettings();
         }
 
         private void BtnProcess_Click(object? sender, EventArgs e)
@@ -34,7 +38,7 @@ namespace ImageNamer
             string[] files = Directory.GetFiles(txtSource.Text, "*.jpg");
             foreach (string file in files)
             {
-                ImageInfoControl imgControl = new ImageInfoControl(file);
+                ImageInfoControl imgControl = new ImageInfoControl(file, attributeManager);
                 flowPanel.Controls.Add(imgControl);
             }
         }
@@ -81,7 +85,7 @@ namespace ImageNamer
                 MessageBox.Show("Please recheck the following files, files already exist in Destination directory:\n" + string.Join("\n", conflicts));
             else
             {
-                MessageBox.Show("All Images Successfully Processed");
+                MessageBox.Show("Selected Images Successfully Processed");
                 //flowPanel.Controls.Clear();
             }
         }
@@ -89,6 +93,36 @@ namespace ImageNamer
         private void button4_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string newAttribute = txtNewAttribute1.Text.Trim();
+
+            if (!string.IsNullOrEmpty(newAttribute) && !attributeManager.attribute1Options.Contains(newAttribute))
+            {
+                attributeManager.attribute1Options.Add(newAttribute);
+                attributeManager.SaveAttributeSettings();
+                txtNewAttribute1.Clear();
+            }
+        }
+
+        private void btnAddAttribute2_Click(object sender, EventArgs e)
+        {
+            string newAttribute = txtNewAttribute2.Text.Trim();
+
+            if (!string.IsNullOrEmpty(newAttribute) && !attributeManager.attribute2Options.Contains(newAttribute))
+            {
+                attributeManager.attribute2Options.Add(newAttribute);
+                attributeManager.SaveAttributeSettings();
+                txtNewAttribute2.Clear();
+            }
+        }
+
+        private void btnReload_Click(object sender, EventArgs e)
+        {
+            attributeManager.LoadAttributeSettings();
+            LoadImages();
         }
     }
 }
