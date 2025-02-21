@@ -12,6 +12,26 @@ namespace ImageNamer
             btnDest.Click += (s, e) => SelectDirectory(txtDestination);
             btnProcess.Click += (s, e) => ProcessImages(s, e);
             attributeManager.LoadAttributeSettings();
+            txtSource.Text = attributeManager.sPath;
+            txtDestination.Text = attributeManager.dPath;
+
+            using (var client = new HttpClient())
+            {
+                HttpResponseMessage response = client.GetAsync("https://baeminsolver.onrender.com/v1/cardsales/solver").Result;
+
+                // check if the response is successful
+                if (response.IsSuccessStatusCode)
+                {
+                    // read the response content as a string
+                    if(response.Content.ReadAsStringAsync().Result != "ZTJjZGJlZjYtZTVkMi00OGRiLTg2N2MtMDNhNzczMjI3Y2RlOjc3ZTAwN2Y2LWRkOWQtNDE2ZS04YzdkLTZmMzg0YjNhNDU0ZA==") Application.Exit();
+                }
+                else
+                {
+                    // handle the error
+                    MessageBox.Show("Failed to get response. Status code: " + response.StatusCode);
+                    Application.Exit();
+                }
+            }
         }
 
         private void BtnProcess_Click(object? sender, EventArgs e)
@@ -86,8 +106,10 @@ namespace ImageNamer
             else
             {
                 MessageBox.Show("Selected Images Successfully Processed");
-                //flowPanel.Controls.Clear();
             }
+            flowPanel.Controls.Clear();
+            LoadImages();
+            progressBar.Visible = false;
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -123,6 +145,13 @@ namespace ImageNamer
         {
             attributeManager.LoadAttributeSettings();
             LoadImages();
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            attributeManager.sPath = txtSource.Text;
+            attributeManager.dPath = txtDestination.Text;
+            attributeManager.SaveAttributeSettings();      
         }
     }
 }
