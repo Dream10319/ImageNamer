@@ -25,6 +25,18 @@ namespace ImageNamer
                 // Load directory paths
                 var sourceDir = doc.Descendants("SourceDirectory").FirstOrDefault()?.Value;
                 var destDir = doc.Descendants("DestinationDirectory").FirstOrDefault()?.Value;
+                
+                if(!Directory.Exists(sourceDir))
+                {
+                    MessageBox.Show("Source Directory is not exist, Please select again.");
+                    sourceDir = "";
+                }
+
+                if (!Directory.Exists(destDir))
+                {
+                    MessageBox.Show("Destination Directory is not exist, Please select again.");
+                    destDir = "";
+                }
 
                 if (!string.IsNullOrEmpty(sourceDir)) sPath = sourceDir;
                 if (!string.IsNullOrEmpty(destDir)) dPath = destDir;

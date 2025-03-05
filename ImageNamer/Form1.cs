@@ -5,9 +5,13 @@ namespace ImageNamer
     public partial class Form1 : Form
     {
         public AttributeManager attributeManager = new AttributeManager();
+        public string logFileName;
         public Form1()
         {
             InitializeComponent();
+
+            logFileName = $"ImageNamer_{DateTime.Now:yyMMdd_HHmm}.txt";
+
             btnSource.Click += (s, e) => SelectDirectory(txtSource);
             btnDest.Click += (s, e) => SelectDirectory(txtDestination);
             btnProcess.Click += (s, e) => ProcessImages(s, e);
@@ -76,7 +80,10 @@ namespace ImageNamer
                 if (File.Exists(destPath))
                     conflicts.Add(newFileName);
                 else
+                {
                     File.Move(control.FilePath, destPath);
+                    File.WriteAllText(logFileName, Environment.NewLine + control.FilePath.ToString());
+                }
 
                 progressBar.Value++;
                 Thread.Sleep(1000);
